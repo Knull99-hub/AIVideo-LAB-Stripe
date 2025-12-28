@@ -1,0 +1,108 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+
+const samples = [
+    { niche: "Skincare", color: "#FFE4E1" },
+    { niche: "Beauty", color: "#E8D5E0" },
+    { niche: "Fitness", color: "#D4E5ED" },
+    { niche: "Home", color: "#E8E4D9" },
+    { niche: "Accessories", color: "#DDE5E4" },
+    { niche: "Lifestyle", color: "#E5E0D8" },
+];
+
+export default function DemoSamples() {
+    return (
+        <section className="bg-white overflow-hidden">
+            <div className="container mx-auto">
+                {/* Section Header */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-12"
+                >
+                    <span className="inline-block bg-[var(--peach)]/20 text-[var(--deep-blue)] px-4 py-2 rounded-full text-sm font-semibold mb-4">
+                        See It In Action
+                    </span>
+                    <h2>Real AI-Generated UGC Samples</h2>
+                    <p className="mt-4 max-w-2xl mx-auto text-lg">
+                        Watch what our AI system produces for brands like yours.
+                    </p>
+                </motion.div>
+
+                {/* Video Carousel */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                    <Swiper
+                        modules={[Autoplay]}
+                        spaceBetween={20}
+                        slidesPerView={2}
+                        autoplay={{ delay: 3000, disableOnInteraction: false }}
+                        loop={true}
+                        breakpoints={{
+                            640: { slidesPerView: 3 },
+                            768: { slidesPerView: 4 },
+                            1024: { slidesPerView: 5 },
+                        }}
+                        className="pb-8"
+                    >
+                        {samples.map((sample, index) => (
+                            <SwiperSlide key={index}>
+                                <motion.div
+                                    whileHover={{ scale: 1.05, y: -10 }}
+                                    className="aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer relative group"
+                                    style={{ backgroundColor: sample.color }}
+                                >
+                                    {/* Play button */}
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                            <svg
+                                                className="w-6 h-6 text-[var(--purple)] ml-1"
+                                                fill="currentColor"
+                                                viewBox="0 0 24 24"
+                                            >
+                                                <path d="M8 5v14l11-7z" />
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    {/* Niche label */}
+                                    <div className="absolute bottom-4 left-4 right-4">
+                                        <div className="bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2 text-center">
+                                            <span className="text-sm font-semibold text-[var(--dark)]">
+                                                {sample.niche}
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    {/* Hover overlay */}
+                                    <div className="absolute inset-0 bg-[var(--purple)]/0 group-hover:bg-[var(--purple)]/10 transition-colors" />
+                                </motion.div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </motion.div>
+
+                {/* Caption */}
+                <motion.p
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.4 }}
+                    className="text-center text-gray-500 text-sm"
+                >
+                    Generated by AIVideo-LAB AI system • Your videos will be customized to your brand
+                </motion.p>
+            </div>
+        </section>
+    );
+}
